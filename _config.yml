@@ -1,2 +1,9 @@
-markdown: kramdown
-highlighter: rouge
+highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions:
+    - fenced_code_blocks
+    - no_intra_emphasis
+    - strikethrough
+    - autolink
+    - tables

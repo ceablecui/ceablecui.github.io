@@ -82,6 +82,7 @@ public class SimpleData {
 * `id`：设定当前字段是否为id，默认为false。在一个类中只有一个成员变量可以设置为id。id是每条数据的唯一标识。
 * 其他属性可参见[ORMLite Package](http://ormlite.com/docs/ormlite.pdf)的2.1章节。
 
+
 ### 3.2 添加空构造方法
 
 在给类和成员变量添加完注解后，ORMLite要求你需要在类中添加一个空构造方法，这个构造方法必须是至少在包内可见的。因为当使用ORMLite查询数据库时，ORMLite将查询结果使用Java反射机制构造并返回给用户，此时类内的构造方法需要被调用。
@@ -188,7 +189,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 我们可以创建一个类，使用静态方法创建一个 `DatabaseHelper` 并在App运行时保持 `DatabaseHelper` 打开，这样可以随时访问数据库。然而，如果有多个线程同时连接到数据库进行操作，那么有可能会出现不可预料的问题。因此，ORMLite的文档推荐当我们需要连接数据库时再去使用 `OpenHelperManager` 去创建一个 `DatabaseHelper` ，当使用完成后释放。
 
-ORMLite提供了 `OrmLiteBaseActivity` ， `OrmLiteBaseListActivity` ， `OrmLiteBaseService` 和 `OrmLiteBaseTabActivity` 四个基本组件，若程序中的activity或service继承于这四种组件中的某一个，那么可以在activity或service中直接调用 `getHelper()` 方法去访问 `DatabaseHelper` ， `DatabaseHelper` 会由ORMLite提供的组件在 `onCreate()` 方法中创建，并在 `OnDestroy()` 中释放。
+ORMLite提供了`OrmLiteBaseActivity`，`OrmLiteBaseListActivity`，`OrmLiteBaseService`和`OrmLiteBaseTabActivity`四个基本组件，若程序中的activity或service继承于这四种组件中的某一个，那么可以在activity或service中直接调用 `getHelper()` 方法去访问 `DatabaseHelper` ， `DatabaseHelper` 会由ORMLite提供的组件在 `onCreate()` 方法中创建，并在 `OnDestroy()` 中释放。
 
 如果我们并不想继承ORMLite提供的组件，那么我们需要自己完成以上的步骤，即在需要使用数据库时调用 `OpenHelperManager.getHelper()` 方法，在访问数据库完成后调用 `OpenHelperManager.release()` 方法。如下所示：
 
@@ -210,8 +211,7 @@ private DBHelper getHelper() {
 	return databaseHelper;
 }
 ````
-**注意**
-对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
+**注意**:对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
 
 至此，通过DatabaseHelper获取到DAO后，我们已经可以使用ORMLite提供的方法进行简单的CURD操作了，ORMLite提供CURD方法主要有：
 
