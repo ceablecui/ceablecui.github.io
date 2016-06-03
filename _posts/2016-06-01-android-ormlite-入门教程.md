@@ -58,11 +58,11 @@ public class SimpleData {
 }
 ````
 
-以上代码定义了一个SimpleData类，其中```@DatabaseTable(tableName = "simpledata")```表示SimpleData类对应数据库中的"simpledata"表，我们也可以不写```@DatabaseTable(tableName = "simpledata")```这段声明，这样ORMLite将会把类名作为表名（```@DatabaseTable```可用```@Entity```代替）。
+以上代码定义了一个SimpleData类，其中`@DatabaseTable(tableName = "simpledata")`表示SimpleData类对应数据库中的"simpledata"表，我们也可以不写`@DatabaseTable(tableName = "simpledata")`这段声明，这样ORMLite将会把类名作为表名（`@DatabaseTable`可用`@Entity`代替）。
 
-而类中的成员变量若要存储在数据库中，那么必须在声明成员变量前添加```@DatabaseField```注解，否则数据库中对应的表将不会生成与该成员变量对应的字段（```@DatabaseField```可用```@Column```代替）。
+而类中的成员变量若要存储在数据库中，那么必须在声明成员变量前添加`@DatabaseField`注解，否则数据库中对应的表将不会生成与该成员变量对应的字段（`@DatabaseField`可用`@Column`代替）。
 
-```@DatabaseField```可以设置数据库中字段的属性，常用属性如下：
+`@DatabaseField`可以设置数据库中字段的属性，常用属性如下：
 
 * `columnName`：设定数据库中对应字段的名称，若不指定则默认为变量名
 * `dataType`：设定字段类型
@@ -202,7 +202,8 @@ OpenHelperManager.getHelper(this, DatabaseHelper.class);
 return databaseHelper;
 }
 ````
-** 注意 ** ：对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
+** 注意 **
+对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
 
 至此，通过DatabaseHelper获取到DAO后，我们已经可以使用ORMLite提供的方法进行简单的CURD操作了，ORMLite提供CURD方法主要有：
 
