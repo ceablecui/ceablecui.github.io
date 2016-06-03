@@ -16,11 +16,21 @@ catgories: Android
 
 ## 1. ORMLite简介
 
-ORMLite官网对于ORMLite-Android的介绍：[http://ormlite.com/sqlite_java_android_orm.shtml](http://ormlite.com/sqlite_java_android_orm.shtml).
+ORMLite官网对于ORMLite-Android的介绍： 
 
-ORMLite Android Example Code: [https://github.com/j256/ormlite-examples/tree/master/android](https://github.com/j256/ormlite-examples/tree/master/android). (Example Code已经很久没更新了，最近一次提交是一年前，而且项目还是在eclipse上的)
+[http://ormlite.com/sqlite_java_android_orm.shtml](http://ormlite.com/sqlite_java_android_orm.shtml).
 
-ORMLite Android的源码：[https://github.com/j256/ormlite-android](https://github.com/j256/ormlite-android). (源码倒是一直在更新)
+ORMLite Android Example Code: 
+
+[https://github.com/j256/ormlite-examples/tree/master/android](https://github.com/j256/ormlite-examples/tree/master/android). 
+
+(Example Code已经很久没更新了，最近一次提交是一年前，而且项目还是在eclipse上的)
+
+ORMLite Android的源码：
+
+[https://github.com/j256/ormlite-android](https://github.com/j256/ormlite-android). 
+
+(源码倒是一直在更新)
 
 ## 2. 下载ORMLite Jar包
 
@@ -58,11 +68,11 @@ public class SimpleData {
 }
 ````
 
-以上代码定义了一个SimpleData类，其中`@DatabaseTable(tableName = "simpledata")`表示SimpleData类对应数据库中的"simpledata"表，我们也可以不写`@DatabaseTable(tableName = "simpledata")`这段声明，这样ORMLite将会把类名作为表名（`@DatabaseTable`可用`@Entity`代替）。
+以上代码定义了一个SimpleData类，其中 `@DatabaseTable(tableName = "simpledata")` 表示SimpleData类对应数据库中的"simpledata"表，我们也可以不写 `@DatabaseTable(tableName = "simpledata")` 这段声明，这样ORMLite将会把类名作为表名（ `@DatabaseTable` 可用 `@Entity` 代替）。
 
-而类中的成员变量若要存储在数据库中，那么必须在声明成员变量前添加`@DatabaseField`注解，否则数据库中对应的表将不会生成与该成员变量对应的字段（`@DatabaseField`可用`@Column`代替）。
+而类中的成员变量若要存储在数据库中，那么必须在声明成员变量前添加 `@DatabaseField` 注解，否则数据库中对应的表将不会生成与该成员变量对应的字段（ `@DatabaseField` 可用 `@Column` 代替）。
 
-`@DatabaseField`可以设置数据库中字段的属性，常用属性如下：
+`@DatabaseField` 可以设置数据库中字段的属性，常用属性如下：
 
 * `columnName`：设定数据库中对应字段的名称，若不指定则默认为变量名
 * `dataType`：设定字段类型
@@ -174,35 +184,33 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 }
 ````
 
-在Android系统上使用ORMLite时，我们需要创建自己的`DatabaseHelper`（应继承于`OrmLiteSqliteOpenHelper`类），`DatabaseHelper`在程序安装时create或upgrades数据库，并提供了一个DAO供程序操作数据库使用。自己创建的`DatabaseHelper`需要实现父类的`onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource
-connectionSource) `和`onUpgrade(SQLiteDatabase database, ConnectionSource
-connectionSource, int oldVersion, int newVersion)`方法。
+在Android系统上使用ORMLite时，我们需要创建自己的 `DatabaseHelper` （应继承于 `OrmLiteSqliteOpenHelper` 类）， `DatabaseHelper` 在程序安装时create或upgrades数据库，并提供了一个DAO供程序操作数据库使用。自己创建的 `DatabaseHelper` 需要实现父类的 `onCreate()`和 `onUpgrade()` 方法。
 
-我们可以创建一个类，使用静态方法创建一个`DatabaseHelper`并在App运行时保持`DatabaseHelper`打开，这样可以随时访问数据库。然而，如果有多个线程同时连接到数据库进行操作，那么有可能会出现不可预料的问题。因此，ORMLite的文档推荐当我们需要连接数据库时再去使用`OpenHelperManager`去创建一个`DatabaseHelper`，当使用完成后释放。
+我们可以创建一个类，使用静态方法创建一个 `DatabaseHelper` 并在App运行时保持 `DatabaseHelper` 打开，这样可以随时访问数据库。然而，如果有多个线程同时连接到数据库进行操作，那么有可能会出现不可预料的问题。因此，ORMLite的文档推荐当我们需要连接数据库时再去使用 `OpenHelperManager` 去创建一个 `DatabaseHelper` ，当使用完成后释放。
 
-ORMLite提供了`OrmLiteBaseActivity`，`OrmLiteBaseListActivity`，`OrmLiteBaseService`和`OrmLiteBaseTabActivity`四个基本组件，若程序中的activity或service继承于这四种组件中的某一个，那么可以在activity或service中直接调用`getHelper()`方法去访问`DatabaseHelper`，`DatabaseHelper`会由ORMLite提供的组件在onCreate()方法中创建，并在`OnDestroy()`中释放。
+ORMLite提供了 `OrmLiteBaseActivity` ， `OrmLiteBaseListActivity` ， `OrmLiteBaseService` 和 `OrmLiteBaseTabActivity` 四个基本组件，若程序中的activity或service继承于这四种组件中的某一个，那么可以在activity或service中直接调用 `getHelper()` 方法去访问 `DatabaseHelper` ， `DatabaseHelper` 会由ORMLite提供的组件在 `onCreate()` 方法中创建，并在 `OnDestroy()` 中释放。
 
-如果我们并不想继承ORMLite提供的组件，那么我们需要自己完成以上的步骤，即在需要使用数据库时调用`OpenHelperManager.getHelper(Context context, Class openHelperClass)`方法，在访问数据库完成后调用`OpenHelperManager.release()` 方法。如下所示：
+如果我们并不想继承ORMLite提供的组件，那么我们需要自己完成以上的步骤，即在需要使用数据库时调用 `OpenHelperManager.getHelper()` 方法，在访问数据库完成后调用 `OpenHelperManager.release()` 方法。如下所示：
 
 ````
 private DatabaseHelper databaseHelper = null;
 @Override
 protected void onDestroy() {
-super.onDestroy();
-if (databaseHelper != null) {
-OpenHelperManager.releaseHelper();
-databaseHelper = null;
-}
+	super.onDestroy();
+	if (databaseHelper != null) {
+		OpenHelperManager.releaseHelper();
+		databaseHelper = null;
+	}
 }
 private DBHelper getHelper() {
-if (databaseHelper == null) {
-databaseHelper =
-OpenHelperManager.getHelper(this, DatabaseHelper.class);
-}
-return databaseHelper;
+	if (databaseHelper == null) {
+		databaseHelper =
+		OpenHelperManager.getHelper(this, DatabaseHelper.class);
+	}
+	return databaseHelper;
 }
 ````
-** 注意 **
+**注意**
 对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
 
 至此，通过DatabaseHelper获取到DAO后，我们已经可以使用ORMLite提供的方法进行简单的CURD操作了，ORMLite提供CURD方法主要有：
@@ -217,7 +225,7 @@ return databaseHelper;
 * `deleteBuilder()` 自定义删除
 * `updateBuilder()` 自定义修改
 
-在比较大的项目中，可能需要频繁使用`queryBuilder()`生成较为复杂的查询语句，因此我们需要根据需求创建自定义的DAO类，封装好较常使用的方法，具体内容将会在下一篇文章介绍。
+在比较大的项目中，可能需要频繁使用 `queryBuilder()` 生成较为复杂的查询语句，因此我们需要根据需求创建自定义的DAO类，封装好较常使用的方法，具体内容将会在下一篇文章介绍。
 
 本篇文章的代码来自于ORMLite提供的Sample Code，源码在[https://github.com/j256/ormlite-examples/tree/master/android/HelloAndroid](https://github.com/j256/ormlite-examples/tree/master/android/HelloAndroid)。
 
