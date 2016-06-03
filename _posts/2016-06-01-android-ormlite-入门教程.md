@@ -3,29 +3,35 @@ layout: post
 title:  "Android ORMLite入门教程"
 date:   2016-06-01 16:45:35
 catgories: Android
+
 ---
 
-#Android ORMLite入门#
+# Android ORMLite入门 #
 
-##0. 前言
+## 0. 前言
+
 还在使用ORMLite的人好像不多了，接触它是因为之前参与的一个项目立项很早，组长当时定了用ORMLite，所以就一直用下来了，算是历史遗留问题吧。
 
 在这里写一篇关于ORMLite的文章，一是为了总结ORMLite的基本用法，以备之后不时之需；二是因为在之前开发的过程中，很多东西都是现查现用，至于这些方法背后的实现方式和思想都没有研究过，只是一知半解，现在回过头来重新学习一下ORMLite，加深一下理解；最后，如果还有同学不幸需要处理和我类似的“历史遗留问题”，希望这篇文章能够对你有帮助。
 
-##1. ORMLite简介
+## 1. ORMLite简介
+
 ORMLite官网对于ORMLite-Android的介绍：[http://ormlite.com/sqlite_java_android_orm.shtml](http://ormlite.com/sqlite_java_android_orm.shtml).
 
 ORMLite Android Example Code: [https://github.com/j256/ormlite-examples/tree/master/android](https://github.com/j256/ormlite-examples/tree/master/android). (Example Code已经很久没更新了，最近一次提交是一年前，而且项目还是在eclipse上的)
 
 ORMLite Android的源码：[https://github.com/j256/ormlite-android](https://github.com/j256/ormlite-android). (源码倒是一直在更新)
 
-##2. 下载ORMLite Jar包
+## 2. 下载ORMLite Jar包
+
 由于Android系统缺少官方对JDBC的支持，ORMLite直接通过请求Android系统数据库的APIs访问SQLite数据库。因此在使用ORMLite时，我们应确保工程中引用了ormlite-core.jar和ormlite-android.jar两个Jar包。
 
 在官网的发布页面( [http://ormlite.com/releases/](http://ormlite.com/releases/) )下载ormlite-android-x.xx.jar和ormlite-core-x.xx.jar两个Jar包，并导入工程。
 
-##3. 创建类
-###3.1 添加ORMLite注解
+## 3. 创建类
+
+### 3.1 添加ORMLite注解
+
 ````
 /**
  * A simple demonstration object we are creating and persisting to the database.
@@ -66,10 +72,11 @@ public class SimpleData {
 * `id`：设定当前字段是否为id，默认为false。在一个类中只有一个成员变量可以设置为id。id是每条数据的唯一标识。
 * 其他属性可参见[ORMLite Package](http://ormlite.com/docs/ormlite.pdf)的2.1章节。
 
-###3.2 添加空构造方法
+### 3.2 添加空构造方法
+
 在给类和成员变量添加完注解后，ORMLite要求你需要在类中添加一个空构造方法，这个构造方法必须是至少在包内可见的。因为当使用ORMLite查询数据库时，ORMLite将查询结果使用Java反射机制构造并返回给用户，此时类内的构造方法需要被调用。
 
-#4. 创建DatabaseHelper
+# 4. 创建DatabaseHelper
 
 ````
 /**
@@ -195,7 +202,7 @@ OpenHelperManager.getHelper(this, DatabaseHelper.class);
 return databaseHelper;
 }
 ````
-** 注意 **：对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
+** 注意 ** ：对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
 
 至此，通过DatabaseHelper获取到DAO后，我们已经可以使用ORMLite提供的方法进行简单的CURD操作了，ORMLite提供CURD方法主要有：
 
