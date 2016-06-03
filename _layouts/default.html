@@ -12,6 +12,9 @@
 
    <!-- Homepage CSS -->
    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   
+   <!-- Highlight -->
+   <link rel="stylesheet" href="/assets/js/plugins/prettify/prettify.css">
 
    <!-- Typekit -->
    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
@@ -82,6 +85,19 @@ var pageTracker = _gat._getTracker("UA-6016902-1");
 pageTracker._trackPageview();
 </script>
 <!-- Google Analytics end -->
+
+<!-- Highlight -->
+ <script src="/assets/js/plugins/prettify/prettify.js"></script>
+	  <script>
+			$(function() {
+				$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+			});
+	  </script>
+	  <script>
+			$(function() {
+				window.prettyPrint && prettyPrint();
+			});
+	  </script>
 
 </body>
 </html>

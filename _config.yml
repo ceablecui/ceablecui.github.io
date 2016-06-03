@@ -1,4 +1,4 @@
-highlighter: pygments
+highlighter: google-code-prettify
 markdown: redcarpet
 redcarpet:
   extensions:
