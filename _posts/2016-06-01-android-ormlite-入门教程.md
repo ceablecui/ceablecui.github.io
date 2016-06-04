@@ -42,7 +42,7 @@ ORMLite Android的源码：
 
 ### 3.1 添加ORMLite注解
 
-````
+{% highlight java %}
 /**
  * A simple demonstration object we are creating and persisting to the database.
  */
@@ -64,9 +64,8 @@ public class SimpleData {
 	SimpleData() {
 		// needed by ormlite
 	}
-
 }
-````
+{% endhighlight %}
 
 以上代码定义了一个SimpleData类，其中 `@DatabaseTable(tableName = "simpledata")` 表示SimpleData类对应数据库中的"simpledata"表，我们也可以不写 `@DatabaseTable(tableName = "simpledata")` 这段声明，这样ORMLite将会把类名作为表名（ `@DatabaseTable` 可用 `@Entity` 代替）。
 
@@ -83,13 +82,14 @@ public class SimpleData {
 * 其他属性可参见[ORMLite Package](http://ormlite.com/docs/ormlite.pdf)的2.1章节。
 
 
+
 ### 3.2 添加空构造方法
 
 在给类和成员变量添加完注解后，ORMLite要求你需要在类中添加一个空构造方法，这个构造方法必须是至少在包内可见的。因为当使用ORMLite查询数据库时，ORMLite将查询结果使用Java反射机制构造并返回给用户，此时类内的构造方法需要被调用。
 
 # 4. 创建DatabaseHelper
 
-````
+{% highlight java %}
 /**
  * Database helper class used to manage the creation and upgrading of your database. This class also usually provides
  * the DAOs used by the other classes.
@@ -183,7 +183,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		simpleRuntimeDao = null;
 	}
 }
-````
+{% endhighlight %}
 
 在Android系统上使用ORMLite时，我们需要创建自己的 `DatabaseHelper` （应继承于 `OrmLiteSqliteOpenHelper` 类）， `DatabaseHelper` 在程序安装时create或upgrades数据库，并提供了一个DAO供程序操作数据库使用。自己创建的 `DatabaseHelper` 需要实现父类的 `onCreate()`和 `onUpgrade()` 方法。
 
@@ -193,7 +193,7 @@ ORMLite提供了`OrmLiteBaseActivity`，`OrmLiteBaseListActivity`，`OrmLiteBase
 
 如果我们并不想继承ORMLite提供的组件，那么我们需要自己完成以上的步骤，即在需要使用数据库时调用 `OpenHelperManager.getHelper()` 方法，在访问数据库完成后调用 `OpenHelperManager.release()` 方法。如下所示：
 
-````
+{% highlight java %}
 private DatabaseHelper databaseHelper = null;
 @Override
 protected void onDestroy() {
@@ -210,7 +210,8 @@ private DBHelper getHelper() {
 	}
 	return databaseHelper;
 }
-````
+{% endhighlight %}
+
 **注意**:对于任何后台线程中对于数据库的操作，一定要正确的调用e `OpenHelperManager.getHelper()`和`release()`方法，否则将会报错。
 
 至此，通过DatabaseHelper获取到DAO后，我们已经可以使用ORMLite提供的方法进行简单的CURD操作了，ORMLite提供CURD方法主要有：

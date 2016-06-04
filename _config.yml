@@ -1,2 +1,19 @@
-highlighter: google-code-prettify
+title: ceablecui's blog
+description: 
+author: ceablecui
+github: https://github.com/ceablecui
+about: Android developer
+urls:
+    - text: About Me
+      url: /about/
+    - text: Github
+      url: https://github.com/ceablecui
+    - text: Contact Me
+      url: mailto:sizhe.cui@gmail.com
+url: "https://ceablecui.github.io"
+baseurl: ""
+paginate: 20
+per_page: 20
+paginate_path: "/page:num/"
 markdown: kramdown
+gems: [jekyll-paginate]
