@@ -2,7 +2,7 @@
 layout: post
 title:  "Android ORMLite入门教程"
 date:   2016-06-01 16:45:35
-catgories: Android
+catgories: android
 
 ---
 
@@ -42,7 +42,7 @@ ORMLite Android的源码：
 
 ### 3.1 添加ORMLite注解
 
-{% highlight java %}
+{% highlight java linenos %}
 /**
  * A simple demonstration object we are creating and persisting to the database.
  */
@@ -89,7 +89,7 @@ public class SimpleData {
 
 # 4. 创建DatabaseHelper
 
-{% highlight java %}
+{% highlight java linenos %}
 /**
  * Database helper class used to manage the creation and upgrading of your database. This class also usually provides
  * the DAOs used by the other classes.
@@ -193,7 +193,7 @@ ORMLite提供了`OrmLiteBaseActivity`，`OrmLiteBaseListActivity`，`OrmLiteBase
 
 如果我们并不想继承ORMLite提供的组件，那么我们需要自己完成以上的步骤，即在需要使用数据库时调用 `OpenHelperManager.getHelper()` 方法，在访问数据库完成后调用 `OpenHelperManager.release()` 方法。如下所示：
 
-{% highlight java %}
+{% highlight java linenos %}
 private DatabaseHelper databaseHelper = null;
 @Override
 protected void onDestroy() {
