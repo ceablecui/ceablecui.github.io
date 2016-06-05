@@ -2,7 +2,7 @@
 layout: post
 title:  "Android ORMLite入门教程"
 date:   2016-06-01 16:45:35
-catgories: android
+categories: android
 
 ---
 
